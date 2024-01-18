@@ -1,17 +1,19 @@
 # Samurai Game Jam 2024
 
+## Updated 1-18@2:15AM
+
 ## Current Goals:
 - Systems for player locomotion and health built (Haki)
 - Have a test room built to test navigation and combat (Haki)
-    - Transfer damage from player to enemy when hit
+	- Transfer damage from player to enemy when hit
 - We need character designs finished (Sen)
-    - Player, Basic Enemy, Boss
+	- Player, Basic Enemy, Boss
 - Player mesh finished (Sen)
-    - Mesh only is needed, we don’t need textures (Although it’s ok if there’s enough time)
+	- Mesh only is needed, we don’t need textures (Although it’s ok if there’s enough time)
 - Concept out art for the level (Art)
 - SFX (Trey)
-    - Sword Slash
-    - Footsteps
+	- Sword Slash
+	- Footsteps
 - Demo music for title / main room (Trey)
 
 Next All-Hands-On Meeting: January 22nd
