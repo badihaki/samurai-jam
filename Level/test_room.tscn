@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://5oeu3ielr1sw"]
+
+[ext_resource type="PackedScene" uid="uid://2utxrfsifspn" path="res://Player/player.tscn" id="1_h2g0p"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1odr5"]
+
+[node name="TestRoom" type="Node3D"]
+
+[node name="Env" type="Node" parent="."]
+
+[node name="ground" type="MeshInstance3D" parent="Env"]
+transform = Transform3D(9.4796, 0, 0, 0, 9.4796, 0, 0, 0, 9.4796, 0, 0, 0)
+mesh = SubResource("PlaneMesh_1odr5")
+skeleton = NodePath("../..")
+
+[node name="Player" parent="." instance=ExtResource("1_h2g0p")]
