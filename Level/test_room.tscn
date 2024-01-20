@@ -26,11 +26,13 @@ size = Vector3(18.7773, 0.0488281, 19.0117)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.999988, 0, 0, 0, 0.999988, 0, 1.61332, 4.19995)
+fov = 74.9122
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 script = ExtResource("1_7k2a5")
 
-[node name="PhantomCamera3D" type="Node3D" parent="."]
+[node name="PlayerCam" type="Node3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.999988, 0, 0, 0, 0.999988, 0, 1.61332, 4.19995)
 script = ExtResource("2_ihupk")
 priority_override = false
