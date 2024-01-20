@@ -1,16 +1,75 @@
-[gd_scene load_steps=3 format=3 uid="uid://5oeu3ielr1sw"]
+[gd_scene load_steps=9 format=3 uid="uid://5oeu3ielr1sw"]
 
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_7k2a5"]
 [ext_resource type="PackedScene" uid="uid://2utxrfsifspn" path="res://Player/player.tscn" id="1_h2g0p"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="2_ihupk"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u83ex"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_pnan6"]
+sky_material = SubResource("ProceduralSkyMaterial_u83ex")
+
+[sub_resource type="Environment" id="Environment_85mku"]
+background_mode = 2
+sky = SubResource("Sky_pnan6")
+tonemap_mode = 2
+glow_enabled = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_1odr5"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_7p74a"]
+size = Vector3(18.7773, 0.0488281, 19.0117)
+
 [node name="TestRoom" type="Node3D"]
 
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.999988, 0, 0, 0, 0.999988, 0, 1.61332, 4.19995)
+
+[node name="PhantomCameraHost" type="Node" parent="Camera3D"]
+script = ExtResource("1_7k2a5")
+
+[node name="PhantomCamera3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.999988, 0, 0, 0, 0.999988, 0, 1.61332, 4.19995)
+script = ExtResource("2_ihupk")
+priority_override = false
+priority = 0
+follow_mode = 6
+follow_target = NodePath("../Player")
+follow_parameters/spring_arm/spring_length = 4.2
+follow_parameters/spring_arm/collision_mask = 1
+follow_parameters/spring_arm/shape = null
+follow_parameters/spring_arm/margin = 0.01
+follow_parameters/target_offset = Vector3(0, 0, 0)
+follow_parameters/damping = false
+look_at_mode = 2
+look_at_target = NodePath("../Player")
+look_at_parameters/look_at_target_offset = Vector3(0, 0, 0)
+tween_parameters = null
+tween_on_load = true
+inactive_update_mode = 0
+camera_3D_resource = null
+
 [node name="Env" type="Node" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Env"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Env"]
+environment = SubResource("Environment_85mku")
 
 [node name="ground" type="MeshInstance3D" parent="Env"]
 transform = Transform3D(9.4796, 0, 0, 0, 9.4796, 0, 0, 0, 9.4796, 0, 0, 0)
 mesh = SubResource("PlaneMesh_1odr5")
 skeleton = NodePath("../..")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="Env/ground"]
+transform = Transform3D(0.10549, 0, 0, 0, 0.10549, 0, 0, 0, 0.10549, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Env/ground/StaticBody3D"]
+shape = SubResource("BoxShape3D_7p74a")
+
 [node name="Player" parent="." instance=ExtResource("1_h2g0p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.61332, 0)
