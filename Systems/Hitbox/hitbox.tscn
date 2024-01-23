@@ -2,11 +2,14 @@
 
 [ext_resource type="Script" path="res://Systems/Hitbox/hitbox.gd" id="1_3wn37"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_3yioq"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vrgab"]
+radius = 0.65
+height = 1.5
 
 [node name="Hitbox" type="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.28348)
 script = ExtResource("1_3wn37")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_3yioq")
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_vrgab")

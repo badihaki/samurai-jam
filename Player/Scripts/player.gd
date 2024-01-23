@@ -6,6 +6,7 @@ extends CharacterBody3D
 @export var speed = 5.0
 @export var movement_is_enabled:bool = true
 @export var dash_is_enabled:bool = true
+@export var attack_in_enabled:bool = true
 @export var dash_speed = 250.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -26,14 +27,21 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export var min_pitch: float = 0
 @export var max_pitch: float = 360
 
+# Hitbox
+var hitbox:Hitbox
+
 func _ready() -> void:
 	if player_cam.get_follow_mode() == player_cam.Constants.FollowMode.THIRD_PERSON:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	hitbox = $GFX/Hitbox
+	hitbox.process_mode = Node.PROCESS_MODE_DISABLED
 
 func _unhandled_input(event: InputEvent) -> void:
 	if player_cam.get_follow_mode() == player_cam.Constants.FollowMode.THIRD_PERSON:
 		if is_instance_valid(player_cam):
 			SetCameraRotation(event)
+	if attack_in_enabled:
+		CanAttack()
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -113,6 +121,25 @@ func Dash()->void:
 		velocity.z = 1 * dash_speed
 	move_and_slide()
 
+func CanAttack()->void:
+	if Input.is_action_just_pressed("attack"):
+		print("attacking")
+		attack_in_enabled = false
+		hitbox.process_mode = Node.PROCESS_MODE_INHERIT
+		var atk_timer:Timer = Timer.new()
+		atk_timer.wait_time = 0.35
+		atk_timer.one_shot
+		
+		atk_timer.timeout.connect(func():
+			hitbox.process_mode = Node.PROCESS_MODE_DISABLED
+			attack_in_enabled = true
+			atk_timer.queue_free()
+			)
+		
+		add_child(atk_timer)
+		atk_timer.name = "atk_timer"
+		atk_timer.start()
+
 func SetCameraRotation(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		var pcam_rotation_degrees: Vector3
@@ -128,3 +155,7 @@ func SetCameraRotation(event: InputEvent) -> void:
 		pcam_rotation_degrees.y = wrapf(pcam_rotation_degrees.y, min_pitch, max_pitch)
 		# Change the SpringArm3D node's rotation and rotate around its target
 		player_cam.set_third_person_rotation_degrees(pcam_rotation_degrees)
+
+func Die()->void:
+	print(owner.name + "...is dead")
+	queue_free()

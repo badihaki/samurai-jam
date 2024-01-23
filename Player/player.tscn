@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Player/Scripts/player.gd" id="1_41eiw"]
 [ext_resource type="PackedScene" uid="uid://cwnxodqn55xva" path="res://Systems/Health/health.tscn" id="2_mov1t"]
 [ext_resource type="PackedScene" uid="uid://bqjng2p0r10hq" path="res://Systems/Hurbox/hurtbox.tscn" id="3_1o21t"]
+[ext_resource type="PackedScene" uid="uid://bp6r7yognhkhm" path="res://Systems/Hitbox/hitbox.tscn" id="4_x7v3s"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_aw8oj"]
 
@@ -16,12 +17,10 @@ albedo_color = Color(0.52549, 0.376471, 0.941176, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eahim"]
 albedo_color = Color(0, 0, 0, 1)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_3yioq"]
-
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_41eiw")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="BodyCollider" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_aw8oj")
 
 [node name="GFX" type="MeshInstance3D" parent="."]
@@ -33,13 +32,13 @@ transform = Transform3D(0.598565, 0, 0, 0, 0.598565, 0, 0, 0, 0.598565, 0, 0.317
 mesh = SubResource("BoxMesh_enjmc")
 surface_material_override/0 = SubResource("StandardMaterial3D_eahim")
 
+[node name="Hitbox" parent="GFX" instance=ExtResource("4_x7v3s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.98348)
+
 [node name="Health" parent="." instance=ExtResource("2_mov1t")]
 current_health = 10
 
-[node name="Hurtbox" parent="." instance=ExtResource("3_1o21t")]
-
-[node name="Hitbox" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.28348)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
-shape = SubResource("SphereShape3D_3yioq")
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_1o21t")]
+collision_layer = 0
+collision_mask = 2
+health_component = NodePath("../Health")
