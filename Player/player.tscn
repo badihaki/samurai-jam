@@ -1,21 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://2utxrfsifspn"]
+[gd_scene load_steps=7 format=3 uid="uid://2utxrfsifspn"]
 
 [ext_resource type="Script" path="res://Player/Scripts/player.gd" id="1_41eiw"]
 [ext_resource type="PackedScene" uid="uid://cwnxodqn55xva" path="res://Systems/Health/health.tscn" id="2_mov1t"]
+[ext_resource type="PackedScene" uid="uid://cuy6ybhwt7q17" path="res://Player/Graphics/Samurai_with_Sword_swing.glb" id="2_weltm"]
 [ext_resource type="PackedScene" uid="uid://bqjng2p0r10hq" path="res://Systems/Hurbox/hurtbox.tscn" id="3_1o21t"]
 [ext_resource type="PackedScene" uid="uid://bp6r7yognhkhm" path="res://Systems/Hitbox/hitbox.tscn" id="4_x7v3s"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_aw8oj"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_j3fcu"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w6r86"]
-albedo_color = Color(0.52549, 0.376471, 0.941176, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_enjmc"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eahim"]
-albedo_color = Color(0, 0, 0, 1)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_41eiw")
@@ -23,22 +14,13 @@ script = ExtResource("1_41eiw")
 [node name="BodyCollider" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_aw8oj")
 
-[node name="GFX" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_j3fcu")
-surface_material_override/0 = SubResource("StandardMaterial3D_w6r86")
+[node name="Samurai_with_Sword_swing" parent="." instance=ExtResource("2_weltm")]
+transform = Transform3D(0.9951, 0, 0, 0, 0.9951, 0, 0, 0, 0.9951, 0, -0.744766, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="GFX"]
-transform = Transform3D(0.598565, 0, 0, 0, 0.598565, 0, 0, 0, 0.598565, 0, 0.317, 0.5)
-mesh = SubResource("BoxMesh_enjmc")
-surface_material_override/0 = SubResource("StandardMaterial3D_eahim")
-
-[node name="Hitbox" parent="GFX" instance=ExtResource("4_x7v3s")]
+[node name="Hitbox" parent="Samurai_with_Sword_swing" instance=ExtResource("4_x7v3s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.98348)
 
 [node name="Health" parent="." instance=ExtResource("2_mov1t")]
-current_health = 10
 
 [node name="Hurtbox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_1o21t")]
-collision_layer = 0
-collision_mask = 2
 health_component = NodePath("../Health")

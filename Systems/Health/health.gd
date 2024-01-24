@@ -1,4 +1,3 @@
-@tool
 class_name Health
 
 extends Node
@@ -12,6 +11,7 @@ signal entity_died
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	current_health = max_health
+	
 	if owner.has_method("Die"):
 		connect("entity_died", owner.Die)
 	else:
