@@ -100,4 +100,4 @@ inactive_update_mode = 0
 camera_3D_resource = SubResource("Resource_ufxx7")
 
 [node name="Grunt" parent="." instance=ExtResource("6_xk5b1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.213192, 2.03509, -5.63493)
+transform = Transform3D(-0.981998, 0, -0.18889, 0, 1, 0, 0.18889, 0, -0.981998, -0.598409, 1.51902, -4.3443)

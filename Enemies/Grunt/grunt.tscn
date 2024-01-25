@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dlyev4jimtqvf"]
+[gd_scene load_steps=9 format=3 uid="uid://dlyev4jimtqvf"]
 
 [ext_resource type="Script" path="res://Systems/Health/health.gd" id="1_fut87"]
 [ext_resource type="Script" path="res://Enemies/Enemy.gd" id="1_sslxi"]
@@ -11,15 +11,24 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_najov"]
 albedo_color = Color(0.882353, 0, 0.247059, 1)
 
+[sub_resource type="BoxMesh" id="BoxMesh_wqda7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o6yrh"]
+size = Vector3(4.80884, 2.35156, 3.65771)
+
 [node name="Grunt" type="CharacterBody3D"]
 script = ExtResource("1_sslxi")
 
 [node name="BodyCollider" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_l1myq")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="GFX" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_wqmfp")
 surface_material_override/0 = SubResource("StandardMaterial3D_najov")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="GFX"]
+transform = Transform3D(0.647863, 0, 0, 0, 0.647863, 0, 0, 0, 0.647863, 0, 0.380722, -0.550355)
+mesh = SubResource("BoxMesh_wqda7")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("1_fut87")
@@ -31,3 +40,9 @@ transform = Transform3D(1.13701, 0, 0, 0, 1.13701, 0, 0, 0, 1.13701, 0, 0, 0)
 health_component = NodePath("../Health")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="DetectionArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+transform = Transform3D(2.66574, 0, 0, 0, 2.66574, 0, 0, 0, 2.66574, 0, 2.03584, -4.80493)
+shape = SubResource("BoxShape3D_o6yrh")
