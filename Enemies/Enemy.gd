@@ -1,8 +1,13 @@
 extends CharacterBody3D
 
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+var speed:float = 5.0
+var evade_velocity:float = 4.5
+
+@onready var nav_agent:NavigationAgent3D = $NavigationAgent3D
+
+func UpdateTargetLocation(target_location:Vector3)->void:
+	nav_agent.target_position = target_location
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -12,6 +17,11 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	
+	var current_location:Vector3 = global_transform.origin
+	var next_location:Vector3 = nav_agent.get_next_path_position()
+	var new_velocity = (next_location - current_location).normalized() * speed
+	
+	velocity = new_velocity
 	move_and_slide()
 #
 	## Handle jump.

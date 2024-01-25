@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://5oeu3ielr1sw"]
+[gd_scene load_steps=15 format=3 uid="uid://5oeu3ielr1sw"]
 
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_7k2a5"]
 [ext_resource type="PackedScene" uid="uid://2utxrfsifspn" path="res://Player/player.tscn" id="1_h2g0p"]
@@ -20,6 +20,10 @@ sky = SubResource("Sky_pnan6")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_tu0k6"]
+vertices = PackedVector3Array(-8.9796, 0.5, -8.9796, -8.9796, 0.5, 9.0204, 9.0204, 0.5, 9.0204, 9.0204, 0.5, -8.9796)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_1odr5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7p74a"]
@@ -38,7 +42,7 @@ h_offset = 0.0
 v_offset = 0.0
 fov = 75.0
 
-[node name="TestRoom" type="Node3D"]
+[node name="TestRoom" type="Node"]
 
 [node name="Camera" type="Camera3D" parent="."]
 unique_name_in_owner = true
@@ -57,15 +61,18 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Env"]
 environment = SubResource("Environment_85mku")
 
-[node name="ground" type="MeshInstance3D" parent="Env"]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="Env"]
+navigation_mesh = SubResource("NavigationMesh_tu0k6")
+
+[node name="ground" type="MeshInstance3D" parent="Env/NavigationRegion3D"]
 transform = Transform3D(9.4796, 0, 0, 0, 9.4796, 0, 0, 0, 9.4796, 0, 0, 0)
 mesh = SubResource("PlaneMesh_1odr5")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Env/ground"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Env/NavigationRegion3D/ground"]
 transform = Transform3D(0.10549, 0, 0, 0, 0.10549, 0, 0, 0, 0.10549, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Env/ground/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Env/NavigationRegion3D/ground/StaticBody3D"]
 shape = SubResource("BoxShape3D_7p74a")
 
 [node name="Player" parent="." instance=ExtResource("1_h2g0p")]

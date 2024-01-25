@@ -29,3 +29,5 @@ current_health = 3
 [node name="Hurtbox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_vcysn")]
 transform = Transform3D(1.13701, 0, 0, 0, 1.13701, 0, 0, 0, 1.13701, 0, 0, 0)
 health_component = NodePath("../Health")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
