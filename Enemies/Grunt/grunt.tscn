@@ -14,7 +14,7 @@ albedo_color = Color(0.882353, 0, 0.247059, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_wqda7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_o6yrh"]
-size = Vector3(4.80884, 2.35156, 3.65771)
+size = Vector3(4.13843, 2.35156, 5.22778)
 
 [node name="Grunt" type="CharacterBody3D"]
 script = ExtResource("1_sslxi")
@@ -45,5 +45,5 @@ health_component = NodePath("../Health")
 [node name="DetectionArea" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
-transform = Transform3D(2.66574, 0, 0, 0, 2.66574, 0, 0, 0, 2.66574, 0, 2.03584, -4.80493)
+transform = Transform3D(2.66574, 0, 0, 0, 2.66574, 0, 0, 0, 2.66574, 0, 1.77511, -2.21672)
 shape = SubResource("BoxShape3D_o6yrh")

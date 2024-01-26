@@ -45,6 +45,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		print("movin no player ref with a velocity of " + str(velocity))
 		move_and_slide()
+	
+	if velocity.x != 0 and velocity.z != 0:
+		rotation.y = atan2(-velocity.x, -velocity.z)
 #
 	## Handle jump.
 	#if Input.is_action_just_pressed("ui_accept") and is_on_floor():
