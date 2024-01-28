@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://6cc47to7oqr3"]
+
+[ext_resource type="Script" path="res://Systems/Door/door.gd" id="1_nijhi"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_u8uu3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3j57q"]
+albedo_color = Color(0.392157, 0.188235, 0.0392157, 1)
+metallic = 0.44
+metallic_specular = 0.33
+roughness = 0.6
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_68p71"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_px3xd"]
+radius = 3.135
+height = 7.25
+
+[node name="Door" type="Node3D"]
+script = ExtResource("1_nijhi")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.06411, 0, 0, 0, 4.69004, 0, 0, 0, 0.29712, 0, 0, 0)
+mesh = SubResource("BoxMesh_u8uu3")
+surface_material_override/0 = SubResource("StandardMaterial3D_3j57q")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_68p71")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CapsuleShape3D_px3xd")

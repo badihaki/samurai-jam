@@ -21,7 +21,10 @@ func UpdateTargetLocation()->void:
 		print("Distance between target and " + name + " : " +str(_distance.length()))
 		nav_agent.target_position = player_ref.global_position
 	else :
-		print("no target")
+		if !player_ref:
+			print("no target")
+		else:
+			print("Caught up to target")
 		#print("in update target location for " + name + " we can set a location close to the target if the agent is close. That way they dont just stop and idle")
 
 func _physics_process(delta: float) -> void:

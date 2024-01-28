@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://5oeu3ielr1sw"]
+[gd_scene load_steps=19 format=3 uid="uid://5oeu3ielr1sw"]
 
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_7k2a5"]
 [ext_resource type="PackedScene" uid="uid://2utxrfsifspn" path="res://Player/player.tscn" id="1_h2g0p"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_xwdi0"]
 [ext_resource type="PackedScene" uid="uid://dlyev4jimtqvf" path="res://Enemies/Grunt/grunt.tscn" id="6_xk5b1"]
 [ext_resource type="PackedScene" uid="uid://dfycwl5lfwgd3" path="res://Systems/Key/key_item.tscn" id="7_wjss2"]
+[ext_resource type="PackedScene" uid="uid://6cc47to7oqr3" path="res://Systems/Door/door.tscn" id="8_48hmw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u83ex"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -117,4 +118,7 @@ camera_3D_resource = SubResource("Resource_ufxx7")
 transform = Transform3D(-0.981998, 0, -0.18889, 0, 1, 0, 0.18889, 0, -0.981998, -0.598409, 1.51902, -4.3443)
 
 [node name="Key-Item" parent="." instance=ExtResource("7_wjss2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.67423, 1.9461, 1.44302)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.7918, 0.961158, 4.91372)
+
+[node name="Door" parent="." instance=ExtResource("8_48hmw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.38294, 0)
