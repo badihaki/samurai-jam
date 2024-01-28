@@ -8,6 +8,7 @@ extends CharacterBody3D
 @export var dash_is_enabled:bool = true
 @export var attack_in_enabled:bool = true
 @export var dash_speed = 250.0
+@export var keys_on_chain:int = 0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -52,6 +53,10 @@ func _physics_process(delta: float) -> void:
 		CanMove()
 	if dash_is_enabled:
 		CanDash()
+
+func GetKey()->void:
+	keys_on_chain += 1
+	print("got a key. total number of keys: " + str(keys_on_chain))
 
 func RotateCharacter()->void:
 	if velocity.length() > 0.2:

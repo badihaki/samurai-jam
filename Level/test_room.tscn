@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://5oeu3ielr1sw"]
+[gd_scene load_steps=18 format=3 uid="uid://5oeu3ielr1sw"]
 
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_7k2a5"]
 [ext_resource type="PackedScene" uid="uid://2utxrfsifspn" path="res://Player/player.tscn" id="1_h2g0p"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="2_ihupk"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_xwdi0"]
 [ext_resource type="PackedScene" uid="uid://dlyev4jimtqvf" path="res://Enemies/Grunt/grunt.tscn" id="6_xk5b1"]
+[ext_resource type="PackedScene" uid="uid://dfycwl5lfwgd3" path="res://Systems/Key/key_item.tscn" id="7_wjss2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u83ex"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -27,7 +28,11 @@ polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 [sub_resource type="PlaneMesh" id="PlaneMesh_1odr5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7p74a"]
-size = Vector3(18.7773, 0.0488281, 19.0117)
+size = Vector3(18.7773, 0.0214844, 19.0117)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_w6lj2"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_4vcg1"]
 
 [sub_resource type="Resource" id="Resource_j40mf"]
 script = ExtResource("3_xwdi0")
@@ -64,16 +69,25 @@ environment = SubResource("Environment_85mku")
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Env"]
 navigation_mesh = SubResource("NavigationMesh_tu0k6")
 
-[node name="ground" type="MeshInstance3D" parent="Env/NavigationRegion3D"]
-transform = Transform3D(9.4796, 0, 0, 0, 9.4796, 0, 0, 0, 9.4796, 0, 0, 0)
+[node name="Ground" type="MeshInstance3D" parent="Env/NavigationRegion3D"]
+transform = Transform3D(68.0861, 0, 0, 0, 68.0861, 0, 0, 0, 68.0861, 0, 0, 0)
 mesh = SubResource("PlaneMesh_1odr5")
 skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Env/NavigationRegion3D/ground"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Env/NavigationRegion3D/Ground"]
 transform = Transform3D(0.10549, 0, 0, 0, 0.10549, 0, 0, 0, 0.10549, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Env/NavigationRegion3D/ground/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Env/NavigationRegion3D/Ground/StaticBody3D"]
 shape = SubResource("BoxShape3D_7p74a")
+
+[node name="Bamboo-Stalk" type="MeshInstance3D" parent="Env"]
+transform = Transform3D(0.341875, 0, 0, 0, 6.79912, 0, 0, 0, 0.341875, -3.22101, 7.43241, -4.0408)
+mesh = SubResource("CylinderMesh_w6lj2")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Env/Bamboo-Stalk"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Env/Bamboo-Stalk/StaticBody3D"]
+shape = SubResource("CylinderShape3D_4vcg1")
 
 [node name="Player" parent="." instance=ExtResource("1_h2g0p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.70279, 2.53935, 6.91916)
@@ -101,3 +115,6 @@ camera_3D_resource = SubResource("Resource_ufxx7")
 
 [node name="Grunt" parent="." instance=ExtResource("6_xk5b1")]
 transform = Transform3D(-0.981998, 0, -0.18889, 0, 1, 0, 0.18889, 0, -0.981998, -0.598409, 1.51902, -4.3443)
+
+[node name="Key-Item" parent="." instance=ExtResource("7_wjss2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.67423, 1.9461, 1.44302)
