@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://5oeu3ielr1sw"]
+[gd_scene load_steps=21 format=3 uid="uid://5oeu3ielr1sw"]
 
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_7k2a5"]
 [ext_resource type="PackedScene" uid="uid://2utxrfsifspn" path="res://Player/player.tscn" id="1_h2g0p"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dlyev4jimtqvf" path="res://Enemies/Grunt/grunt.tscn" id="6_xk5b1"]
 [ext_resource type="PackedScene" uid="uid://dfycwl5lfwgd3" path="res://Systems/Key/key_item.tscn" id="7_wjss2"]
 [ext_resource type="PackedScene" uid="uid://6cc47to7oqr3" path="res://Systems/Door/door.tscn" id="8_48hmw"]
+[ext_resource type="PackedScene" uid="uid://cf8udwae7nmys" path="res://Systems/Soul/soul_item.tscn" id="9_wana4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u83ex"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -34,6 +35,8 @@ size = Vector3(18.7773, 0.0214844, 19.0117)
 [sub_resource type="CylinderMesh" id="CylinderMesh_w6lj2"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_4vcg1"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_oq72u"]
 
 [sub_resource type="Resource" id="Resource_j40mf"]
 script = ExtResource("3_xwdi0")
@@ -90,6 +93,14 @@ mesh = SubResource("CylinderMesh_w6lj2")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Env/Bamboo-Stalk/StaticBody3D"]
 shape = SubResource("CylinderShape3D_4vcg1")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Env"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.64171, 3.90324, 9.93499)
+mesh = SubResource("BoxMesh_oq72u")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Env/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Env/MeshInstance3D/StaticBody3D"]
+
 [node name="Player" parent="." instance=ExtResource("1_h2g0p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.70279, 2.53935, 6.91916)
 
@@ -122,3 +133,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.7918, 0.961158, 4.91372)
 
 [node name="Door" parent="." instance=ExtResource("8_48hmw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.38294, 0)
+
+[node name="Key-Item2" parent="." instance=ExtResource("7_wjss2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.1805, 1.15207, -9.4277)
+
+[node name="Key-Item3" parent="." instance=ExtResource("7_wjss2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.489, 1.26422, 15.547)
+
+[node name="Soul-Item" parent="." instance=ExtResource("9_wana4")]
