@@ -14,10 +14,9 @@ script = ExtResource("1_41eiw")
 [node name="BodyCollider" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_aw8oj")
 
-[node name="GFX" parent="." instance=ExtResource("2_weltm")]
-transform = Transform3D(0.9951, 0, 0, 0, 0.9951, 0, 0, 0, 0.9951, 0, -0.744766, 0)
+[node name="Samurai_with_Sword_swing" parent="." instance=ExtResource("2_weltm")]
 
-[node name="Hitbox" parent="GFX" instance=ExtResource("4_x7v3s")]
+[node name="Hitbox" parent="Samurai_with_Sword_swing" instance=ExtResource("4_x7v3s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.98348)
 
 [node name="Health" parent="." instance=ExtResource("2_mov1t")]
