@@ -1,17 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dlyev4jimtqvf"]
+[gd_scene load_steps=7 format=3 uid="uid://dlyev4jimtqvf"]
 
 [ext_resource type="Script" path="res://Systems/Health/health.gd" id="1_fut87"]
 [ext_resource type="Script" path="res://Enemies/Enemy.gd" id="1_sslxi"]
 [ext_resource type="PackedScene" uid="uid://bqjng2p0r10hq" path="res://Systems/Hurbox/hurtbox.tscn" id="3_vcysn"]
+[ext_resource type="PackedScene" uid="uid://cr1e8car171a" path="res://Enemies/Grunt/Cybunraku2.glb" id="4_e1l34"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_l1myq"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_wqmfp"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_najov"]
-albedo_color = Color(0.882353, 0, 0.247059, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_wqda7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_o6yrh"]
 size = Vector3(4.13843, 2.35156, 5.22778)
@@ -22,14 +16,6 @@ max_target_distance = 2.7
 
 [node name="BodyCollider" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_l1myq")
-
-[node name="GFX" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_wqmfp")
-surface_material_override/0 = SubResource("StandardMaterial3D_najov")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="GFX"]
-transform = Transform3D(0.647863, 0, 0, 0, 0.647863, 0, 0, 0, 0.647863, 0, 0.380722, -0.550355)
-mesh = SubResource("BoxMesh_wqda7")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("1_fut87")
@@ -47,3 +33,6 @@ health_component = NodePath("../Health")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
 transform = Transform3D(2.66574, 0, 0, 0, 2.66574, 0, 0, 0, 2.66574, 0, 1.77511, -2.21672)
 shape = SubResource("BoxShape3D_o6yrh")
+
+[node name="Cybunraku2" parent="." instance=ExtResource("4_e1l34")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.856774, 0)
