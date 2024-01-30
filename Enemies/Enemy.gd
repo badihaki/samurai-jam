@@ -21,7 +21,11 @@ func UpdateTargetLocation()->void:
 		print("Distance between target and " + name + " : " +str(_distance.length()))
 		nav_agent.target_position = player_ref.global_position
 	else :
-		print("in update target location for " + name + " we can set a location close to the target if the agent is close. That way they dont just stop and idle")
+		if !player_ref:
+			print("no target")
+		else:
+			print("Caught up to target")
+		#print("in update target location for " + name + " we can set a location close to the target if the agent is close. That way they dont just stop and idle")
 
 func _physics_process(delta: float) -> void:
 	# gravity is on by defauls
@@ -40,31 +44,12 @@ func _physics_process(delta: float) -> void:
 		var distance:float = (player_ref.global_position - global_position).length()
 		# finally, move the entity if it's not close to position we are trying to get to
 		if distance > max_target_distance:
-			print("movin with a player ref with a velocity of " + str(velocity))
+			#print("movin with a player ref with a velocity of " + str(velocity))
+			rotation.y = atan2(-velocity.x, -velocity.z)
 			move_and_slide()
 	else:
-		print("movin no player ref with a velocity of " + str(velocity))
+		#print("movin no player ref with a velocity of " + str(velocity))
 		move_and_slide()
-	
-	if velocity.x != 0 and velocity.z != 0:
-		rotation.y = atan2(-velocity.x, -velocity.z)
-#
-	## Handle jump.
-	#if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		#velocity.y = JUMP_VELOCITY
-#
-	## Get the input direction and handle the movement/deceleration.
-	## As good practice, you should replace UI actions with custom gameplay actions.
-	#var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	#var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	#if direction:
-		#velocity.x = direction.x * SPEED
-		#velocity.z = direction.z * SPEED
-	#else:
-		#velocity.x = move_toward(velocity.x, 0, SPEED)
-		#velocity.z = move_toward(velocity.z, 0, SPEED)
-#
-	#move_and_slide()
 
 func Die()->void:
 	print(owner.name + "...is dead")
