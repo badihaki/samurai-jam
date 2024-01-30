@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://5oeu3ielr1sw"]
+[gd_scene load_steps=20 format=3 uid="uid://5oeu3ielr1sw"]
 
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_7k2a5"]
 [ext_resource type="PackedScene" uid="uid://2utxrfsifspn" path="res://Player/player.tscn" id="1_h2g0p"]
@@ -24,7 +24,7 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_tu0k6"]
-vertices = PackedVector3Array(-8.9796, 0.5, -8.9796, -8.9796, 0.5, 9.0204, 9.0204, 0.5, 9.0204, 9.0204, 0.5, -8.9796)
+vertices = PackedVector3Array(-67.5861, 0.5, -67.5861, -67.5861, 0.5, 67.6639, 67.6639, 0.5, 67.6639, 67.6639, 0.5, -67.5861)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_1odr5"]
@@ -35,8 +35,6 @@ size = Vector3(18.7773, 0.0214844, 19.0117)
 [sub_resource type="CylinderMesh" id="CylinderMesh_w6lj2"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_4vcg1"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_oq72u"]
 
 [sub_resource type="Resource" id="Resource_j40mf"]
 script = ExtResource("3_xwdi0")
@@ -92,14 +90,6 @@ mesh = SubResource("CylinderMesh_w6lj2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Env/Bamboo-Stalk/StaticBody3D"]
 shape = SubResource("CylinderShape3D_4vcg1")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Env"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.64171, 3.90324, 9.93499)
-mesh = SubResource("BoxMesh_oq72u")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Env/MeshInstance3D"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Env/MeshInstance3D/StaticBody3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_h2g0p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.70279, 2.53935, 6.91916)
