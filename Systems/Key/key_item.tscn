@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfycwl5lfwgd3"]
+
+[ext_resource type="PackedScene" uid="uid://by5k5brenepbr" path="res://Systems/Key/Graphics/Key.glb" id="1_djrte"]
+[ext_resource type="Script" path="res://Systems/Key/key_item.gd" id="2_huagu"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8re5p"]
+radius = 1.0
+
+[node name="Key-Item" instance=ExtResource("1_djrte")]
+script = ExtResource("2_huagu")
+
+[node name="Key" parent="." index="0"]
+transform = Transform3D(0.180872, 0, 0, 0, -7.90617e-09, -0.180872, 0, 0.180872, -7.90617e-09, -0.238369, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0"]
+shape = SubResource("SphereShape3D_8re5p")

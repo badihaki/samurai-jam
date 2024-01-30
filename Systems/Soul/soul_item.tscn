@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cf8udwae7nmys"]
+
+[ext_resource type="PackedScene" uid="uid://c62mtnr38w5h0" path="res://Systems/Soul/Soul.glb" id="1_d37se"]
+
+[node name="Soul-Item" type="Area3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+
+[node name="Soul" parent="." instance=ExtResource("1_d37se")]
