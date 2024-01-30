@@ -1,23 +1,100 @@
-[gd_scene load_steps=4 format=3 uid="uid://o5wf5s4jknjl"]
+[gd_scene load_steps=15 format=3 uid="uid://o5wf5s4jknjl"]
 
-[ext_resource type="PackedScene" uid="uid://2utxrfsifspn" path="res://Player/player.tscn" id="1_v1pu8"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_wbo62"]
+[ext_resource type="PackedScene" uid="uid://co67lu7ocx1cq" path="res://Level/BuildingBlocks/ground.tscn" id="2_j2abn"]
+[ext_resource type="PackedScene" uid="uid://cdl0ojhsiwsct" path="res://Level/BuildingBlocks/box.tscn" id="3_yxqim"]
+[ext_resource type="PackedScene" uid="uid://2utxrfsifspn" path="res://Player/player.tscn" id="4_a65cr"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="5_0i1dm"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_nv1tb"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3D_resource.gd" id="7_u08fq"]
+[ext_resource type="PackedScene" uid="uid://dlyev4jimtqvf" path="res://Enemies/Grunt/grunt.tscn" id="8_u4tb0"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_s8aem"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u83ex"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_mxn5x"]
-size = Vector3(1.99438, 0.001, 1.98804)
+[sub_resource type="Sky" id="Sky_pnan6"]
+sky_material = SubResource("ProceduralSkyMaterial_u83ex")
 
-[node name="world" type="Node3D"]
+[sub_resource type="Environment" id="Environment_85mku"]
+background_mode = 2
+sky = SubResource("Sky_pnan6")
+tonemap_mode = 2
+glow_enabled = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0)
-mesh = SubResource("PlaneMesh_s8aem")
+[sub_resource type="NavigationMesh" id="NavigationMesh_tu0k6"]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+[sub_resource type="Resource" id="Resource_j40mf"]
+script = ExtResource("6_nv1tb")
+duration = 0.3
+transition = 1
+ease = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00708008)
-shape = SubResource("BoxShape3D_mxn5x")
+[sub_resource type="Resource" id="Resource_ufxx7"]
+script = ExtResource("7_u08fq")
+cull_mask = 1048575
+h_offset = 0.0
+v_offset = 0.0
+fov = 75.0
 
-[node name="Player" parent="." instance=ExtResource("1_v1pu8")]
-transform = Transform3D(0.426377, 0, 0, 0, 0.426377, 0, 0, 0, 0.426377, 0.299641, 0.767083, 0.498296)
+[node name="World" type="Node"]
+
+[node name="Camera" type="Camera3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.499999, 0, -0.5, 0.866023, -4.70279, 5.28934, 11.6823)
+current = true
+
+[node name="PhantomCameraHost" type="Node" parent="Camera"]
+script = ExtResource("1_wbo62")
+
+[node name="Env" type="Node" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Env"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Env"]
+environment = SubResource("Environment_85mku")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="Env"]
+transform = Transform3D(1.79597, 0, 0, 0, 1.79597, 0, 0, 0, 1.79597, 0, 0, 0)
+navigation_mesh = SubResource("NavigationMesh_tu0k6")
+
+[node name="ground" parent="Env/NavigationRegion3D" instance=ExtResource("2_j2abn")]
+
+[node name="box" parent="Env" instance=ExtResource("3_yxqim")]
+transform = Transform3D(2.76167, 0, 0, 0, 2.76167, 0, 0, 0, 2.76167, 5.03589, 1.3371, 0.96201)
+
+[node name="box2" parent="Env" instance=ExtResource("3_yxqim")]
+transform = Transform3D(2.76167, 0, 0, 0, 2.76167, 0, 0, 0, 2.76167, 5.03589, 4.10026, 0.96201)
+
+[node name="Player" parent="." instance=ExtResource("4_a65cr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.70279, 2.53935, 6.91916)
+
+[node name="PlayerCam" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.499999, 0, -0.5, 0.866023, -4.70279, 5.28934, 11.6823)
+script = ExtResource("5_0i1dm")
+priority_override = false
+priority = 10
+follow_mode = 6
+follow_target = NodePath("../Player")
+follow_parameters/spring_arm/spring_length = 5.5
+follow_parameters/spring_arm/collision_mask = 1
+follow_parameters/spring_arm/shape = null
+follow_parameters/spring_arm/margin = 0.2
+follow_parameters/target_offset = Vector3(0, 0, 0)
+follow_parameters/damping = true
+follow_parameters/damping_value = 10.0
+look_at_mode = 0
+tween_parameters = SubResource("Resource_j40mf")
+tween_on_load = false
+inactive_update_mode = 0
+camera_3D_resource = SubResource("Resource_ufxx7")
+
+[node name="Grunt" parent="." instance=ExtResource("8_u4tb0")]
+transform = Transform3D(-0.981998, 0, -0.18889, 0, 1, 0, 0.18889, 0, -0.981998, -1.53554, 1.83103, -5.03934)
+
+[node name="Grunt2" parent="." instance=ExtResource("8_u4tb0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.96996, 1.8078, 0.294669)
+speed = 8.0

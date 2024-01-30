@@ -1,8 +1,8 @@
 extends CharacterBody3D
 
 
-var speed:float = 5.0
-var evade_velocity:float = 4.5
+@export var speed:float = 5.0
+@export var evade_velocity:float = 4.5
 
 @onready var nav_agent:NavigationAgent3D = $NavigationAgent3D
 @export var max_target_distance: float = 2.735
